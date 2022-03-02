@@ -14,3 +14,13 @@ Kinesis Data Streams (KDS) allows to collect and push data in real time, allowin
 ## Schema
 
 ![](https://github.com/pi-square-io/kinesis-error-handling-poc/blob/main/schema.png)
+
+## Lambda Error Handling (poison messages):
+
+Considering  the case of a specific corrupt record which should be rejected by the Lambda. If this is not handled, the Lambda function will retry until the record is eventually expired by the Kinesis stream. In this case, there are two options to handle message failures. 
+
+The first one is to configure the following retry and failure behaviors settings with Lambda as the consumer for Kinesis Data Streams:
+
+- On-failure destination : Automatically send records that fail processing to an SQS queue.
+- Retry attempts: Control the maximum retries per batch.
+- Split batch on error : Split a failed batch into two batches. Retrying with smaller batches isolates bad records.
