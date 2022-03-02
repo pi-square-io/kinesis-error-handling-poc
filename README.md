@@ -10,6 +10,13 @@ Kinesis Data Streams (KDS) allows to collect and push data in real time, allowin
 - Can easily become  a bottelneck. 
 - If one message is not proceessed correctly, the stream is blocked. 
 
+## Objective 
+
+The goal of this code is to : 
+
+- Automate the cretion of a Dead Letter Queue (SQS queue containing failed messages) 
+- Split batch messages from kinesis to isolate the error. 
+- Automatically handle messages in error and send them to SQS. 
 
 ## Schema
 
